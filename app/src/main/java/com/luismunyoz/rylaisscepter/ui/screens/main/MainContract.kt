@@ -1,5 +1,6 @@
 package com.luismunyoz.rylaisscepter.ui.screens.main
 
+import com.luismunyoz.rylaisscepter.ui.entity.UIChampion
 import com.luismunyoz.rylaisscepter.ui.util.BaseContract
 
 /**
@@ -8,6 +9,8 @@ import com.luismunyoz.rylaisscepter.ui.util.BaseContract
 interface MainContract {
 
     interface View : BaseContract.BaseView<Presenter> {
+
+        fun populateItems(champions: List<UIChampion>)
 
     }
 

@@ -25,7 +25,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import com.squareup.picasso.Picasso
+import com.bumptech.glide.Glide
 import org.jetbrains.anko.layoutInflater
 
 /**
@@ -40,7 +40,7 @@ fun ViewGroup.inflate(@LayoutRes layoutRes: Int, attachToRoot: Boolean = false):
 }
 
 fun ImageView.loadUrl(url: String) {
-    Picasso.with(context).load(url).into(this)
+    Glide.with(context).load(url).into(this)
 }
 
 fun TextView.setTextAppearanceC(@StyleRes textAppearance: Int)

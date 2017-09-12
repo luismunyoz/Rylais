@@ -10,4 +10,6 @@ class UIChampionDataMapper {
 
     fun transform(champion: Champion) = UIChampion(champion.id, champion.key, champion.name, champion.title)
 
+    fun transform(champions : List<Champion>) : List<UIChampion> = champions.map { transform(it) }
+
 }
