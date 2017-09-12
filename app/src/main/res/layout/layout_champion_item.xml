@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
     <data>
         <variable
             name="item"
@@ -8,13 +9,28 @@
             name="listener"
             type="com.luismunyoz.rylaisscepter.ui.screens.main.adapter.UIChampionsAdapter.Callback"/>
     </data>
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="vertical" android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="200dp">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:imageUrl="@{item.splashImageUrl}"
+            android:scaleType="centerCrop"/>
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:text="@{item.name}"/>
-    </LinearLayout>
+            android:text="@{item.name}"
+            android:textColor="#ffffff"
+            android:background="#000000"
+            android:padding="8dp"
+            android:textAllCaps="true"
+            android:textSize="20sp"
+            android:layout_gravity="bottom"
+            app:backgroundColorBasedUrl="@{item.splashImageUrl}"
+            android:visibility="gone"
+            android:animateLayoutChanges="true"
+            android:fontFamily="@font/timeless"
+            tools:text="Champion name"/>
+    </FrameLayout>
 </layout>

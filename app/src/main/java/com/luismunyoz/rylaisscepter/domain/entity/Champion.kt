@@ -1,4 +1,4 @@
-package com.luismunyoz.rylaisscepter.data.model
+package com.luismunyoz.rylaisscepter.domain.entity
 
 /**
  * Created by llco on 11/09/2017.

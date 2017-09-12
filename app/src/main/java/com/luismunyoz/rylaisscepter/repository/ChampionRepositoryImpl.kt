@@ -1,6 +1,6 @@
 package com.luismunyoz.rylaisscepter.repository
 
-import com.luismunyoz.rylaisscepter.data.model.Champion
+import com.luismunyoz.rylaisscepter.domain.entity.Champion
 import com.luismunyoz.rylaisscepter.domain.repository.ChampionRepository
 import com.luismunyoz.rylaisscepter.repository.dataset.ChampionDataSet
 

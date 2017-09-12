@@ -1,6 +1,6 @@
 package com.luismunyoz.rylaisscepter.ui.entity.mapper
 
-import com.luismunyoz.rylaisscepter.data.model.Champion
+import com.luismunyoz.rylaisscepter.domain.entity.Champion
 import com.luismunyoz.rylaisscepter.ui.entity.UIChampion
 
 /**

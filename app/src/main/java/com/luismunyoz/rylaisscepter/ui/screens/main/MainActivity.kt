@@ -35,8 +35,6 @@ class MainActivity : BaseActivity(), MainContract.View, UIChampionsAdapter.Callb
         ButterKnife.bind(this)
 
         list = findViewById(R.id.main_list)
-
-        presenter.start()
     }
 
     override fun injectDependencies(applicationComponent: ApplicationComponent) {
@@ -55,6 +53,7 @@ class MainActivity : BaseActivity(), MainContract.View, UIChampionsAdapter.Callb
     override fun onResume() {
         super.onResume()
         presenter.onResume()
+        presenter.start()
     }
 
     override fun onPause() {

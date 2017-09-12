@@ -1,7 +1,7 @@
 package com.luismunyoz.rylaisscepter.data.mapper
 
-import com.luismunyoz.rylaisscepter.data.model.Champion
 import com.luismunyoz.rylaisscepter.data.model.RiotChampion
+import com.luismunyoz.rylaisscepter.domain.entity.Champion
 
 /**
  * Created by llco on 11/09/2017.

@@ -9,4 +9,16 @@ class UIChampion(
         val key: String,
         val name: String,
         val title: String
-)
+) {
+    fun getLoadingImageUrl() : String {
+        return "http://ddragon.leagueoflegends.com/cdn/img/champion/loading/${key}_0.jpg"
+    }
+
+    fun getSquareImageUrl() : String {
+        return "http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/${key}.png"
+    }
+
+    fun getSplashImageUrl() : String {
+        return "http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${key}_0.jpg"
+    }
+}

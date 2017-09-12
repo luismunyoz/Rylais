@@ -1,6 +1,6 @@
 package com.luismunyoz.rylaisscepter.domain.interactor.event
 
-import com.luismunyoz.rylaisscepter.data.model.Champion
+import com.luismunyoz.rylaisscepter.domain.entity.Champion
 import com.luismunyoz.rylaisscepter.domain.interactor.base.Event
 
 /**
