@@ -9,9 +9,13 @@ import com.luismunyoz.rylaisscepter.ui.entity.mapper.UIChampionDataMapper
 /**
  * Created by llco on 11/09/2017.
  */
-class MainPresenter(val view: MainContract.View, override val bus: Bus, val getChampionsInteractor: GetChampionsInteractor, val interactorExecutor: InteractorExecutor, val uiChampionDataMapper: UIChampionDataMapper) : MainContract.Presenter {
+class MainPresenter(val view: MainContract.View,
+                    override val bus: Bus,
+                    val getChampionsInteractor: GetChampionsInteractor,
+                    val interactorExecutor: InteractorExecutor,
+                    val uiChampionDataMapper: UIChampionDataMapper) : MainContract.Presenter {
 
-    override fun start() {
+    fun start() {
         downloadChampions()
     }
 

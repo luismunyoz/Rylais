@@ -8,8 +8,6 @@ import com.luismunyoz.rylaisscepter.domain.interactor.base.Bus
 interface BaseContract {
 
     public interface BasePresenter {
-        fun start()
-
         val bus: Bus
 
         fun onResume(){
