@@ -10,6 +10,9 @@ import com.luismunyoz.rylaisscepter.repository.dataset.ChampionDataSet
  */
 class CloudChampionDataSet(val riotAPIService: RiotAPIService) : ChampionDataSet {
 
+    override fun requestChampion(id: String): Champion =
+            riotAPIService.getChampion(id).unwrapCall { ChampionMapper().transform(champion) }
+
     override fun requestChampions(): List<Champion> =
         riotAPIService.getChampions().unwrapCall {
             ChampionMapper().transform(data)

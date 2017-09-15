@@ -10,4 +10,6 @@ interface ChampionDataSet {
 
     fun requestChampions() : List<Champion>
 
+    fun requestChampion(id: String) : Champion
+
 }
