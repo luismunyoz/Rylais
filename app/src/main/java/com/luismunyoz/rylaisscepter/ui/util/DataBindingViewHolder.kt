@@ -53,7 +53,7 @@ class DataBindingViewHolder(val binding: ViewDataBinding) : RecyclerView.ViewHol
             Glide.with(imageView.context).load(url).into(imageView)
         }
 
-        @BindingAdapter("app:backgroundColorBasedUrl")
+        @BindingAdapter("app:backgroundAndTextColorBasedUrl")
         @JvmStatic
         fun loadColorPalette(textView: TextView, url: String){
             Glide.with(textView.context).load(url).asBitmap().into(object : SimpleTarget<Bitmap>(){
@@ -68,6 +68,25 @@ class DataBindingViewHolder(val binding: ViewDataBinding) : RecyclerView.ViewHol
                         textView.background = gd
                         textView.textColor = vibrantSwatch.titleTextColor
                         textView.visibility = View.VISIBLE
+                    }
+                }
+            })
+        }
+
+        @BindingAdapter("app:backgroundGradientUrlBased")
+        @JvmStatic
+        fun loadBackgroundGradientPalette(view: View, url: String){
+            Glide.with(view.context).load(url).asBitmap().into(object : SimpleTarget<Bitmap>() {
+                override fun onResourceReady(resource: Bitmap?, glideAnimation: GlideAnimation<in Bitmap>?) {
+                    val palette : Palette = Palette.from(resource).generate()
+                    if(palette.vibrantSwatch != null){
+                        val vibrantSwatch : Palette.Swatch = palette.vibrantSwatch!!
+
+                        val gd = GradientDrawable(
+                                GradientDrawable.Orientation.BOTTOM_TOP,
+                                intArrayOf(vibrantSwatch.rgb, 0x00000000.toInt()))
+
+                        view.background = gd
                     }
                 }
             })

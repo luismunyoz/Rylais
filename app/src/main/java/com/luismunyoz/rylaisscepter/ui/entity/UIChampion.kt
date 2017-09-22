@@ -1,5 +1,7 @@
 package com.luismunyoz.rylaisscepter.ui.entity
 
+import java.io.Serializable
+
 /**
  * Created by llco on 11/09/2017.
  */
@@ -9,7 +11,7 @@ class UIChampion(
         val key: String,
         val name: String,
         val title: String
-) {
+) : Serializable {
     fun getLoadingImageUrl() : String {
         return "http://ddragon.leagueoflegends.com/cdn/img/champion/loading/${key}_0.jpg"
     }

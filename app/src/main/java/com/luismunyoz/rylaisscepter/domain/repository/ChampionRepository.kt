@@ -10,6 +10,6 @@ interface ChampionRepository {
 
     fun getChampions(): List<Champion>
 
-    fun getChampion(id: String) : Champion
+    fun getChampion(id: String) : Champion?
 
 }

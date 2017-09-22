@@ -10,13 +10,19 @@
             type="com.luismunyoz.rylaisscepter.ui.screens.main.adapter.UIChampionsAdapter.Callback"/>
     </data>
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="vertical" android:layout_width="match_parent"
-        android:layout_height="200dp">
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:onClick="@{() -> listener.onChampionPressed(item, championItemImage)}"
+        android:foreground="?attr/selectableItemBackgroundBorderless">
         <ImageView
+            android:id="@+id/champion_item_image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:imageUrl="@{item.splashImageUrl}"
-            android:scaleType="centerCrop"/>
+            android:scaleType="centerCrop" />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -27,7 +33,7 @@
             android:textAllCaps="true"
             android:textSize="20sp"
             android:layout_gravity="bottom"
-            app:backgroundColorBasedUrl="@{item.splashImageUrl}"
+            app:backgroundAndTextColorBasedUrl="@{item.splashImageUrl}"
             android:visibility="gone"
             android:animateLayoutChanges="true"
             android:fontFamily="@font/timeless"

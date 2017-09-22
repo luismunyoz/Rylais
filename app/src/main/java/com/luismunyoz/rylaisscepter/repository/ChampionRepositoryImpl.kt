@@ -8,7 +8,7 @@ import com.luismunyoz.rylaisscepter.repository.dataset.ChampionDataSet
  * Created by llco on 11/09/2017.
  */
 class ChampionRepositoryImpl(val championDataSets: List<ChampionDataSet>) : ChampionRepository {
-    override fun getChampion(id: String): Champion = championDataSets.map { it.re}
+    override fun getChampion(id: String): Champion? = championDataSets.map { it.requestChampion(id)}.firstOrNull()
 
     override fun getChampions(): List<Champion> = championDataSets
             .map { it.requestChampions() }

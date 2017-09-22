@@ -12,9 +12,12 @@ interface MainContract {
 
         fun populateItems(champions: List<UIChampion>)
 
+        fun goToChampionDetails(champion: UIChampion)
+
     }
 
     interface Presenter : BaseContract.BasePresenter {
 
+        fun onChampionPressed(championId: String)
     }
 }

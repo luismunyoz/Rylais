@@ -1,5 +1,6 @@
 package com.luismunyoz.rylaisscepter.ui.screens.main.adapter
 
+import android.widget.ImageView
 import com.luismunyoz.rylaisscepter.R
 import com.luismunyoz.rylaisscepter.ui.entity.UIChampion
 import com.luismunyoz.rylaisscepter.ui.util.BaseAdapter
@@ -26,6 +27,6 @@ class UIChampionsAdapter(var items: List<UIChampion>, var callback: Callback) : 
     }
 
     public interface Callback {
-        fun onChampionPressed(champion : UIChampion)
+        fun onChampionPressed(champion : UIChampion, championImage: ImageView)
     }
 }
