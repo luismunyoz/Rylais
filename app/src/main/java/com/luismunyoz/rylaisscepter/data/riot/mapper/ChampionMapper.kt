@@ -1,6 +1,8 @@
 package com.luismunyoz.rylaisscepter.data.riot.mapper
 
-import com.luismunyoz.rylaisscepter.data.model.RiotChampion
+import com.luismunyoz.rylaisscepter.data.model.RiotBaseChampion
+import com.luismunyoz.rylaisscepter.data.riot.model.RiotChampion
+import com.luismunyoz.rylaisscepter.domain.entity.BaseChampion
 import com.luismunyoz.rylaisscepter.domain.entity.Champion
 
 /**
@@ -8,9 +10,23 @@ import com.luismunyoz.rylaisscepter.domain.entity.Champion
  */
 class ChampionMapper {
 
-    fun transform(championsMap: Map<String, RiotChampion>) : List<Champion> {
+    fun transform(championsMap: Map<String, RiotBaseChampion>) : List<BaseChampion> {
         return championsMap.mapNotNull { transform(it.value) }
     }
 
-    fun transform(riotChampion: RiotChampion) : Champion = Champion(riotChampion.id, riotChampion.key, riotChampion.name, riotChampion.title, null, null, null, null, null)
+    fun transform(riotBaseChampion: RiotBaseChampion) : BaseChampion = BaseChampion(riotBaseChampion.id, riotBaseChampion.key, riotBaseChampion.name, riotBaseChampion.title, null, null, null, null, null)
+
+    fun transform(champion: RiotChampion): Champion {
+        return Champion(
+                champion.id,
+                champion.key,
+                champion.name,
+                champion.title,
+                champion.lore,
+                null,
+                null,
+                null,
+                null
+        )
+    }
 }

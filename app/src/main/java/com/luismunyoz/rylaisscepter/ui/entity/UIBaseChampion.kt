@@ -6,7 +6,7 @@ import java.io.Serializable
  * Created by llco on 11/09/2017.
  */
 
-class UIChampion(
+class UIBaseChampion(
         val id: String,
         val key: String,
         val name: String,
@@ -18,14 +18,14 @@ class UIChampion(
         var darkColor: Int?
 ) : Serializable {
     fun getLoadingImageUrl() : String {
-        return "http://ddragon.leagueoflegends.com/cdn/img/champion/loading/${key}_0.jpg"
+        return "http://ddragon.leagueoflegends.com/cdn/img/baseChampion/loading/${key}_0.jpg"
     }
 
     fun getSquareImageUrl() : String {
-        return "http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/${key}.png"
+        return "http://ddragon.leagueoflegends.com/cdn/6.24.1/img/baseChampion/${key}.png"
     }
 
     fun getSplashImageUrl() : String {
-        return "http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${key}_0.jpg"
+        return "http://ddragon.leagueoflegends.com/cdn/img/baseChampion/splash/${key}_0.jpg"
     }
 }

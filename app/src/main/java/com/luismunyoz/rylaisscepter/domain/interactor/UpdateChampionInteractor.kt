@@ -1,6 +1,6 @@
 package com.luismunyoz.rylaisscepter.domain.interactor
 
-import com.luismunyoz.rylaisscepter.domain.entity.Champion
+import com.luismunyoz.rylaisscepter.domain.entity.BaseChampion
 import com.luismunyoz.rylaisscepter.domain.interactor.base.Event
 import com.luismunyoz.rylaisscepter.domain.interactor.base.Interactor
 import com.luismunyoz.rylaisscepter.domain.interactor.event.ChampionEvent
@@ -11,10 +11,10 @@ import com.luismunyoz.rylaisscepter.domain.repository.ChampionRepository
  */
 class UpdateChampionInteractor(val championsRepository: ChampionRepository) : Interactor {
 
-    var champion: Champion? = null
+    var baseChampion: BaseChampion? = null
 
     override fun invoke(): Event {
-        val champion = this.champion ?: throw IllegalStateException("champion can´t be null")
+        val champion = this.baseChampion ?: throw IllegalStateException("baseChampion can´t be null")
         championsRepository.storeChampion(champion)
         return ChampionEvent(champion)
     }

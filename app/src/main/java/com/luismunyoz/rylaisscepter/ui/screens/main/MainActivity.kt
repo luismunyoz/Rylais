@@ -21,7 +21,7 @@ import com.luismunyoz.rylaisscepter.R
 import com.luismunyoz.rylaisscepter.di.ApplicationComponent
 import com.luismunyoz.rylaisscepter.di.subcomponent.main.MainActivityModule
 import com.luismunyoz.rylaisscepter.ui.activity.BaseActivity
-import com.luismunyoz.rylaisscepter.ui.entity.UIChampion
+import com.luismunyoz.rylaisscepter.ui.entity.UIBaseChampion
 import com.luismunyoz.rylaisscepter.ui.entity.mapper.UIChampionDataMapper
 import com.luismunyoz.rylaisscepter.ui.screens.detail.DetailActivity
 import com.luismunyoz.rylaisscepter.ui.screens.main.adapter.UIChampionsAdapter
@@ -60,21 +60,21 @@ class MainActivity : BaseActivity(), MainContract.View, UIChampionsAdapter.Callb
         applicationComponent.plus(MainActivityModule(this)).injectTo(this)
     }
 
-    override fun populateItems(champions: List<UIChampion>) {
-        adapter = UIChampionsAdapter(champions, this)
+    override fun populateItems(baseChampions: List<UIBaseChampion>) {
+        adapter = UIChampionsAdapter(baseChampions, this)
         list.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         list.adapter = adapter
     }
 
-    override fun onChampionPressed(champion: UIChampion, imageView: ImageView, textView: TextView) {
+    override fun onChampionPressed(baseChampion: UIBaseChampion, imageView: ImageView, textView: TextView) {
         lastPressedImageView = imageView
         lastPressedTextView = textView
-        presenter.onChampionPressed(champion.id)
+        presenter.onChampionPressed(baseChampion.id)
     }
 
-    override fun calculateColors(position: Int, champion: UIChampion) {
-        Log.d("PALETTE", "Calculating color for ${champion.name}")
-        Glide.with(this).load(champion.getSplashImageUrl()).asBitmap().into(object : SimpleTarget<Bitmap>(){
+    override fun calculateColors(position: Int, baseChampion: UIBaseChampion) {
+        Log.d("PALETTE", "Calculating color for ${baseChampion.name}")
+        Glide.with(this).load(baseChampion.getSplashImageUrl()).asBitmap().into(object : SimpleTarget<Bitmap>(){
             override fun onResourceReady(resource: Bitmap?, glideAnimation: GlideAnimation<in Bitmap>?) {
                 Palette.from(resource).generate(object : Palette.PaletteAsyncListener {
                     override fun onGenerated(palette: Palette?) {
@@ -101,21 +101,21 @@ class MainActivity : BaseActivity(), MainContract.View, UIChampionsAdapter.Callb
                         }
 
                         primarySwatch?.let {
-                            champion.primaryColor = it.rgb
-                            champion.primaryTextColor = it.bodyTextColor
-                            champion.primaryTitleColor = it.titleTextColor
+                            baseChampion.primaryColor = it.rgb
+                            baseChampion.primaryTextColor = it.bodyTextColor
+                            baseChampion.primaryTitleColor = it.titleTextColor
                         }
 
                         lightSwatch?.let {
-                            champion.lightColor = it.rgb
+                            baseChampion.lightColor = it.rgb
                         }
 
                         darkSwatch?.let {
-                            champion.darkColor = it.rgb
+                            baseChampion.darkColor = it.rgb
                         }
 
-                        adapter.updateItem(position, champion)
-                        presenter.updateChampion(champion)
+                        adapter.updateItem(position, baseChampion)
+                        presenter.updateChampion(baseChampion)
                     }
                 })
             }
@@ -123,19 +123,19 @@ class MainActivity : BaseActivity(), MainContract.View, UIChampionsAdapter.Callb
     }
 
     @SuppressLint("NewApi")
-    override fun goToChampionDetails(champion: UIChampion) {
+    override fun goToChampionDetails(baseChampion: UIBaseChampion) {
         supportsLollipop {
             lastPressedImageView?.transitionName = "image"
             lastPressedTextView?.transitionName = "name"
         }
 
-        champion.primaryColor?.let {
-            window.setBackgroundDrawable(ColorDrawable(champion.primaryColor!!))
+        baseChampion.primaryColor?.let {
+            window.setBackgroundDrawable(ColorDrawable(baseChampion.primaryColor!!))
         }
 
         val intent = Intent(this, DetailActivity::class.java)
-        intent.putExtra("id", champion.id)
-        intent.putExtra(DetailActivity.ARG_CHAMPION, champion)
+        intent.putExtra("id", baseChampion.id)
+        intent.putExtra(DetailActivity.ARG_CHAMPION, baseChampion)
 
         var options: ActivityOptionsCompat? = null
 

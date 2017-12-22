@@ -1,15 +1,14 @@
 package com.luismunyoz.rylaisscepter.data.firebase
 
-import android.app.AlarmManager
 import android.util.Log
 import com.google.android.gms.tasks.Tasks
-import com.luismunyoz.rylaisscepter.domain.entity.Champion
+import com.luismunyoz.rylaisscepter.domain.entity.BaseChampion
 import com.luismunyoz.rylaisscepter.repository.dataset.ChampionDataSet
 import javax.inject.Inject
 import com.google.firebase.firestore.FirebaseFirestore
 import com.luismunyoz.rylaisscepter.BuildConfig
 import com.luismunyoz.rylaisscepter.data.firebase.mapper.ChampionMapper
-import com.luismunyoz.rylaisscepter.data.firebase.model.FBChampion
+import com.luismunyoz.rylaisscepter.data.firebase.model.FBBaseChampion
 import java.util.concurrent.TimeUnit
 
 
@@ -18,42 +17,42 @@ import java.util.concurrent.TimeUnit
  */
 class FirebaseChampionDataSet @Inject constructor(val firebaseDatabase: FirebaseFirestore) : ChampionDataSet {
 
-    override fun requestChampions(): List<Champion> {
+    override fun requestChampions(): List<BaseChampion> {
 
         if(!isCacheValid()){
             return listOf()
         }
 
-        val champions : MutableList<FBChampion> = mutableListOf()
+        val baseChampions: MutableList<FBBaseChampion> = mutableListOf()
         try {
-            val task = firebaseDatabase.collection("champions").orderBy("name").get()
+            val task = firebaseDatabase.collection("basechampions").orderBy("name").get()
             Tasks.await(task, 5000, TimeUnit.MILLISECONDS)
             if (task.isSuccessful) {
                 task.result.documents.forEach {
-                    val champion = it.toObject(FBChampion::class.java)
-                    champions.add(champion)
+                    val champion = it.toObject(FBBaseChampion::class.java)
+                    baseChampions.add(champion)
                 }
                 //latch.await()
-                return champions.map { ChampionMapper().transform(it) }
+                return baseChampions.map { ChampionMapper().transform(it) }
             }
         } catch (e: Exception) {
-            Log.d("FIREBASE", "Error downloading champions")
+            Log.d("FIREBASE", "Error downloading baseChampions")
             e.printStackTrace()
         }
         return listOf()
     }
 
-    override fun requestChampion(id: String): Champion? {
+    override fun requestChampion(id: String): BaseChampion? {
 
         if(!isCacheValid()){
             return null
         }
 
         try {
-            val task = firebaseDatabase.collection("champions").document(id).get()
+            val task = firebaseDatabase.collection("baseChampions").document(id).get()
             Tasks.await(task, 500, TimeUnit.MILLISECONDS)
             if (task.isSuccessful) {
-                return ChampionMapper().transform(task.result.toObject(FBChampion::class.java))
+                return ChampionMapper().transform(task.result.toObject(FBBaseChampion::class.java))
             }
         } catch (e: Exception) {
             e.printStackTrace()
@@ -61,10 +60,10 @@ class FirebaseChampionDataSet @Inject constructor(val firebaseDatabase: Firebase
         return null
     }
 
-    override fun store(champion: Champion) {
-        val map = ChampionMapper().transform(champion).map
+    override fun store(baseChampion: BaseChampion) {
+        val map = ChampionMapper().transform(baseChampion).map
 
-        firebaseDatabase.collection("champions").document(champion.id)
+        firebaseDatabase.collection("baseChampions").document(baseChampion.id)
                 .set(map)
 
         firebaseDatabase.collection("configuration").document("cache").set(mapOf<String, Any>(Pair("lastUpdatedChampions", System.currentTimeMillis())))

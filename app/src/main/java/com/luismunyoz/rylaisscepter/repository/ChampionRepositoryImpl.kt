@@ -1,15 +1,14 @@
 package com.luismunyoz.rylaisscepter.repository
 
-import com.luismunyoz.rylaisscepter.domain.entity.Champion
+import com.luismunyoz.rylaisscepter.domain.entity.BaseChampion
 import com.luismunyoz.rylaisscepter.domain.repository.ChampionRepository
 import com.luismunyoz.rylaisscepter.repository.dataset.ChampionDataSet
-import java.util.function.Consumer
 
 /**
  * Created by llco on 11/09/2017.
  */
 class ChampionRepositoryImpl(val championDataSets: List<ChampionDataSet>) : ChampionRepository {
-    override fun getChampion(id: String): Champion? {
+    override fun getChampion(id: String): BaseChampion? {
         var lastDataSet: ChampionDataSet? = null
         return championDataSets
                 .map {
@@ -24,7 +23,7 @@ class ChampionRepositoryImpl(val championDataSets: List<ChampionDataSet>) : Cham
                 }
     }
 
-    override fun getChampions(): List<Champion> {
+    override fun getBaseChampions(): List<BaseChampion> {
         var lastDataSet: ChampionDataSet? = null
         return championDataSets
                 .map {
@@ -40,10 +39,10 @@ class ChampionRepositoryImpl(val championDataSets: List<ChampionDataSet>) : Cham
                 ?: emptyList()
     }
 
-    override fun storeChampion(champion: Champion) {
+    override fun storeChampion(baseChampion: BaseChampion) {
         championDataSets
             .map {
-                it.store(champion)
+                it.store(baseChampion)
             }
     }
 }

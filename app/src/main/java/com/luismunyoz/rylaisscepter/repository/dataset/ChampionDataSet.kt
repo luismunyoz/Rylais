@@ -1,5 +1,6 @@
 package com.luismunyoz.rylaisscepter.repository.dataset
 
+import com.luismunyoz.rylaisscepter.domain.entity.BaseChampion
 import com.luismunyoz.rylaisscepter.domain.entity.Champion
 
 
@@ -8,11 +9,11 @@ import com.luismunyoz.rylaisscepter.domain.entity.Champion
  */
 interface ChampionDataSet {
 
-    fun requestChampions() : List<Champion>
+    fun requestChampions() : List<BaseChampion>
 
     fun requestChampion(id: String) : Champion?
 
-    fun store(champion : Champion)
+    fun store(baseChampion: BaseChampion)
 
     fun isCacheValid() : Boolean
 

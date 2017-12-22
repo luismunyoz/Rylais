@@ -3,13 +3,13 @@ package com.luismunyoz.rylaisscepter.ui.screens.main.adapter
 import android.widget.ImageView
 import android.widget.TextView
 import com.luismunyoz.rylaisscepter.R
-import com.luismunyoz.rylaisscepter.ui.entity.UIChampion
+import com.luismunyoz.rylaisscepter.ui.entity.UIBaseChampion
 import com.luismunyoz.rylaisscepter.ui.util.BaseAdapter
 
 /**
  * Created by llco on 12/09/2017.
  */
-class UIChampionsAdapter(var items: List<UIChampion>, var callback: Callback) : BaseAdapter() {
+class UIChampionsAdapter(var items: List<UIBaseChampion>, var callback: Callback) : BaseAdapter() {
 
     override fun getItemForPosition(position: Int) : Any {
         val item = items.get(position)
@@ -25,19 +25,19 @@ class UIChampionsAdapter(var items: List<UIChampion>, var callback: Callback) : 
 
     override fun getItemCount() = items.size
 
-    fun updateItem(position: Int, uiChampion: UIChampion){
-        items.find { it.id == uiChampion.id }?.apply {
-            primaryTextColor = uiChampion.primaryTextColor
-            primaryColor = uiChampion.primaryColor
-            primaryTitleColor = uiChampion.primaryTitleColor
-            lightColor = uiChampion.lightColor
-            darkColor = uiChampion.darkColor
+    fun updateItem(position: Int, uiBaseChampion: UIBaseChampion){
+        items.find { it.id == uiBaseChampion.id }?.apply {
+            primaryTextColor = uiBaseChampion.primaryTextColor
+            primaryColor = uiBaseChampion.primaryColor
+            primaryTitleColor = uiBaseChampion.primaryTitleColor
+            lightColor = uiBaseChampion.lightColor
+            darkColor = uiBaseChampion.darkColor
         }
         notifyItemChanged(position)
     }
 
     public interface Callback {
-        fun onChampionPressed(champion : UIChampion, championImage: ImageView, championName: TextView)
-        fun calculateColors(position: Int, champion: UIChampion)
+        fun onChampionPressed(baseChampion: UIBaseChampion, championImage: ImageView, championName: TextView)
+        fun calculateColors(position: Int, baseChampion: UIBaseChampion)
     }
 }

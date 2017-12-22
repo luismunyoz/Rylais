@@ -6,7 +6,7 @@ import android.graphics.Color
  * Created by llco on 20/12/2017.
  */
 
-data class FBChampion(
+data class FBBaseChampion(
         val id: String = "",
         val key: String = "",
         val name: String = "",

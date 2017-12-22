@@ -1,13 +1,11 @@
 package com.luismunyoz.rylaisscepter.ui.screens.detail
 
-import android.animation.ValueAnimator
 import android.annotation.SuppressLint
 import android.databinding.DataBindingUtil
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.support.design.widget.AppBarLayout
 import android.support.design.widget.CollapsingToolbarLayout
-import android.support.design.widget.CoordinatorLayout
 import android.support.v4.widget.NestedScrollView
 import android.support.v7.widget.Toolbar
 import com.luismunyoz.rylaisscepter.R
@@ -15,13 +13,10 @@ import com.luismunyoz.rylaisscepter.databinding.ActivityDetailBinding
 import com.luismunyoz.rylaisscepter.di.ApplicationComponent
 import com.luismunyoz.rylaisscepter.di.subcomponent.detail.DetailActivityModule
 import com.luismunyoz.rylaisscepter.ui.activity.BaseActivity
-import com.luismunyoz.rylaisscepter.ui.entity.UIChampion
+import com.luismunyoz.rylaisscepter.ui.entity.UIBaseChampion
 import com.luismunyoz.rylaisscepter.ui.entity.mapper.UIChampionDataMapper
-import com.luismunyoz.rylaisscepter.ui.util.dpToPx
 import com.luismunyoz.rylaisscepter.ui.util.getNavigationId
 import com.luismunyoz.rylaisscepter.ui.util.supportsLollipop
-import kotlinx.android.synthetic.main.activity_detail.*
-import org.jetbrains.anko.backgroundColor
 import javax.inject.Inject
 
 /**
@@ -30,7 +25,7 @@ import javax.inject.Inject
 class DetailActivity : BaseActivity(), DetailContract.View {
 
     companion object {
-        val ARG_CHAMPION = "champion"
+        val ARG_CHAMPION = "baseChampion"
     }
 
     @Inject
@@ -39,7 +34,7 @@ class DetailActivity : BaseActivity(), DetailContract.View {
     @Inject
     lateinit var presenter : DetailPresenter
 
-    lateinit var uiChampion : UIChampion
+    lateinit var uiBaseChampion: UIBaseChampion
     lateinit var binding : ActivityDetailBinding
     lateinit var scrollview : NestedScrollView
     lateinit var toolbar : Toolbar
@@ -58,8 +53,8 @@ class DetailActivity : BaseActivity(), DetailContract.View {
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        uiChampion = intent?.extras?.get(ARG_CHAMPION) as UIChampion
-        populateChampion(uiChampion)
+        uiBaseChampion = intent?.extras?.get(ARG_CHAMPION) as UIBaseChampion
+        populateChampion(uiBaseChampion)
         setViewEvents()
     }
 
@@ -73,7 +68,7 @@ class DetailActivity : BaseActivity(), DetailContract.View {
                     scrollRange = appBarLayout.totalScrollRange
                 }
                 if (scrollRange + verticalOffset == 0) {
-                    collapsingToolbar.setTitle(uiChampion.name)
+                    collapsingToolbar.setTitle(uiBaseChampion.name)
                     isShown = true
                 } else if (isShown) {
                     collapsingToolbar.setTitle(" ")//carefull there should a space between double quote otherwise it wont work
@@ -84,16 +79,16 @@ class DetailActivity : BaseActivity(), DetailContract.View {
     }
 
     @SuppressLint("NewApi")
-    override fun populateChampion(champion: UIChampion) {
+    override fun populateChampion(baseChampion: UIBaseChampion) {
         supportsLollipop {
-            uiChampion.primaryColor?.let {
+            uiBaseChampion.primaryColor?.let {
                 window.setBackgroundDrawable(ColorDrawable(it))
             }
-            uiChampion.darkColor?.let {
+            uiBaseChampion.darkColor?.let {
                 window.statusBarColor = it
             }
         }
-        binding.item = champion
+        binding.item = baseChampion
     }
 
     override fun injectDependencies(applicationComponent: ApplicationComponent) {

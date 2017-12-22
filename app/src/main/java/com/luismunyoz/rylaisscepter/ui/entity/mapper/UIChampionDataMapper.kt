@@ -1,15 +1,15 @@
 package com.luismunyoz.rylaisscepter.ui.entity.mapper
 
-import com.luismunyoz.rylaisscepter.domain.entity.Champion
-import com.luismunyoz.rylaisscepter.ui.entity.UIChampion
+import com.luismunyoz.rylaisscepter.domain.entity.BaseChampion
+import com.luismunyoz.rylaisscepter.ui.entity.UIBaseChampion
 
 /**
  * Created by llco on 11/09/2017.
  */
 class UIChampionDataMapper {
 
-    fun transform(champion: Champion) = UIChampion(champion.id, champion.key, champion.name, champion.title, champion.primaryColor, champion.primaryTitleColor, champion.primaryTextColor, champion.lightColor, champion.darkColor)
+    fun transform(baseChampion: BaseChampion) = UIBaseChampion(baseChampion.id, baseChampion.key, baseChampion.name, baseChampion.title, baseChampion.primaryColor, baseChampion.primaryTitleColor, baseChampion.primaryTextColor, baseChampion.lightColor, baseChampion.darkColor)
 
-    fun transform(champions : List<Champion>) : List<UIChampion> = champions.map { transform(it) }
+    fun transform(baseChampions: List<BaseChampion>) : List<UIBaseChampion> = baseChampions.map { transform(it) }
 
 }

@@ -1,6 +1,6 @@
 package com.luismunyoz.rylaisscepter.ui.screens.main
 
-import com.luismunyoz.rylaisscepter.ui.entity.UIChampion
+import com.luismunyoz.rylaisscepter.ui.entity.UIBaseChampion
 import com.luismunyoz.rylaisscepter.ui.util.BaseContract
 
 /**
@@ -10,9 +10,9 @@ interface MainContract {
 
     interface View : BaseContract.BaseView<Presenter> {
 
-        fun populateItems(champions: List<UIChampion>)
+        fun populateItems(baseChampions: List<UIBaseChampion>)
 
-        fun goToChampionDetails(champion: UIChampion)
+        fun goToChampionDetails(baseChampion: UIBaseChampion)
 
     }
 
@@ -20,6 +20,6 @@ interface MainContract {
 
         fun onChampionPressed(championId: String)
 
-        fun updateChampion(uiChampion: UIChampion)
+        fun updateChampion(uiBaseChampion: UIBaseChampion)
     }
 }
