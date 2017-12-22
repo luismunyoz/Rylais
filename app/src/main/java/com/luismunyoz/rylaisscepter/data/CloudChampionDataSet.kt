@@ -1,6 +1,6 @@
 package com.luismunyoz.rylaisscepter.data
 
-import com.luismunyoz.rylaisscepter.data.mapper.ChampionMapper
+import com.luismunyoz.rylaisscepter.data.riot.mapper.ChampionMapper
 import com.luismunyoz.rylaisscepter.data.riot.RiotAPIService
 import com.luismunyoz.rylaisscepter.domain.entity.Champion
 import com.luismunyoz.rylaisscepter.repository.dataset.ChampionDataSet
@@ -17,5 +17,10 @@ class CloudChampionDataSet(val riotAPIService: RiotAPIService) : ChampionDataSet
         riotAPIService.getChampions().unwrapCall {
             ChampionMapper().transform(data)
         } ?: emptyList()
+
+    override fun store(champion: Champion) {
+    }
+
+    override fun isCacheValid(): Boolean = true
 
 }

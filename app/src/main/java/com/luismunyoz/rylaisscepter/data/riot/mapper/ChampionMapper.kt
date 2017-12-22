@@ -1,4 +1,4 @@
-package com.luismunyoz.rylaisscepter.data.mapper
+package com.luismunyoz.rylaisscepter.data.riot.mapper
 
 import com.luismunyoz.rylaisscepter.data.model.RiotChampion
 import com.luismunyoz.rylaisscepter.domain.entity.Champion
@@ -12,5 +12,5 @@ class ChampionMapper {
         return championsMap.mapNotNull { transform(it.value) }
     }
 
-    fun transform(riotChampion: RiotChampion) : Champion = Champion(riotChampion.id, riotChampion.key, riotChampion.name, riotChampion.title)
+    fun transform(riotChampion: RiotChampion) : Champion = Champion(riotChampion.id, riotChampion.key, riotChampion.name, riotChampion.title, null, null, null, null, null)
 }

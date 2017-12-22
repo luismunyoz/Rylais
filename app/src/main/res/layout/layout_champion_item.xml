@@ -15,26 +15,25 @@
         android:layout_height="200dp"
         android:clickable="true"
         android:focusable="true"
-        android:onClick="@{() -> listener.onChampionPressed(item, championItemImage)}"
+        android:onClick="@{() -> listener.onChampionPressed(item, championItemImage, championItemText)}"
         android:foreground="?attr/selectableItemBackgroundBorderless">
         <ImageView
             android:id="@+id/champion_item_image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:imageUrl="@{item.splashImageUrl}"
+            app:reducedImageUrl="@{item.splashImageUrl}"
             android:scaleType="centerCrop" />
         <TextView
+            android:id="@+id/champion_item_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@{item.name}"
-            android:textColor="#ffffff"
-            android:background="#000000"
             android:padding="8dp"
             android:textAllCaps="true"
             android:textSize="20sp"
             android:layout_gravity="bottom"
-            app:backgroundAndTextColorBasedUrl="@{item.splashImageUrl}"
-            android:visibility="gone"
+            app:horizontalBackgroundGradient="@{item.primaryColor != null ? item.primaryColor : 0x000000}"
+            app:textColor="@{item.primaryTextColor != null ? item.primaryTextColor : 0xffffff}"
             android:animateLayoutChanges="true"
             android:fontFamily="@font/timeless"
             tools:text="Champion name"/>

@@ -10,7 +10,12 @@ class UIChampion(
         val id: String,
         val key: String,
         val name: String,
-        val title: String
+        val title: String,
+        var primaryColor: Int?,
+        var primaryTitleColor: Int?,
+        var primaryTextColor: Int?,
+        var lightColor: Int?,
+        var darkColor: Int?
 ) : Serializable {
     fun getLoadingImageUrl() : String {
         return "http://ddragon.leagueoflegends.com/cdn/img/champion/loading/${key}_0.jpg"

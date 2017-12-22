@@ -13,6 +13,7 @@ import com.bumptech.glide.request.animation.GlideAnimation
 import android.graphics.Bitmap
 import com.bumptech.glide.request.target.SimpleTarget
 import android.R.attr.bitmap
+import android.graphics.Color
 import android.support.v7.graphics.Palette
 import android.view.View
 import org.jetbrains.anko.backgroundColor
@@ -53,43 +54,40 @@ class DataBindingViewHolder(val binding: ViewDataBinding) : RecyclerView.ViewHol
             Glide.with(imageView.context).load(url).into(imageView)
         }
 
-        @BindingAdapter("app:backgroundAndTextColorBasedUrl")
+        @BindingAdapter("app:reducedImageUrl")
         @JvmStatic
-        fun loadColorPalette(textView: TextView, url: String){
-            Glide.with(textView.context).load(url).asBitmap().into(object : SimpleTarget<Bitmap>(){
-                override fun onResourceReady(resource: Bitmap?, glideAnimation: GlideAnimation<in Bitmap>?) {
-                    val palette : Palette = Palette.from(resource).generate()
-                    if(palette.vibrantSwatch != null){
-                        val vibrantSwatch : Palette.Swatch = palette.vibrantSwatch!!
-
-                        val gd = GradientDrawable(
-                                GradientDrawable.Orientation.LEFT_RIGHT,
-                                intArrayOf(vibrantSwatch.rgb, 0x00000000.toInt()))
-                        textView.background = gd
-                        textView.textColor = vibrantSwatch.titleTextColor
-                        textView.visibility = View.VISIBLE
-                    }
-                }
-            })
+        fun reducedLoadImage(imageView: ImageView, url: String){
+            Glide.with(imageView.context).load(url).sizeMultiplier(0.4f).into(imageView)
         }
 
-        @BindingAdapter("app:backgroundGradientUrlBased")
+        @BindingAdapter("app:primaryColor")
         @JvmStatic
-        fun loadBackgroundGradientPalette(view: View, url: String){
-            Glide.with(view.context).load(url).asBitmap().into(object : SimpleTarget<Bitmap>() {
-                override fun onResourceReady(resource: Bitmap?, glideAnimation: GlideAnimation<in Bitmap>?) {
-                    val palette : Palette = Palette.from(resource).generate()
-                    if(palette.vibrantSwatch != null){
-                        val vibrantSwatch : Palette.Swatch = palette.vibrantSwatch!!
+        fun setBackgroundColor(view: View, color: Int){
+            view.setBackgroundColor(color)
+        }
 
-                        val gd = GradientDrawable(
-                                GradientDrawable.Orientation.BOTTOM_TOP,
-                                intArrayOf(vibrantSwatch.rgb, 0x00000000.toInt()))
+        @BindingAdapter("app:primaryTextColor")
+        @JvmStatic
+        fun setTextColor(textView: TextView, color: Int){
+            textView.textColor = color
+        }
 
-                        view.background = gd
-                    }
-                }
-            })
+        @BindingAdapter("app:horizontalBackgroundGradient")
+        @JvmStatic
+        fun setHorizontalBackgroundGradient(view: View, color: Int){
+            val gd = GradientDrawable(
+                    GradientDrawable.Orientation.LEFT_RIGHT,
+                    intArrayOf(color, 0x00000000.toInt()))
+            view.background = gd
+        }
+
+        @BindingAdapter("app:verticalBackgroundGradient")
+        @JvmStatic
+        fun setVerticalBackgroundGradient(view: View, color: Int){
+            val gd = GradientDrawable(
+                    GradientDrawable.Orientation.BOTTOM_TOP,
+                    intArrayOf(color, 0x00000000.toInt()))
+            view.background = gd
         }
     }
 

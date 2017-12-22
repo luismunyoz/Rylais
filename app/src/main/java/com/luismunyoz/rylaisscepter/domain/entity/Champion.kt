@@ -8,5 +8,10 @@ class Champion (
         val id: String,
         val key: String,
         val name: String,
-        val title: String
+        val title: String,
+        var primaryColor: Int?,
+        var primaryTitleColor: Int?,
+        var primaryTextColor: Int?,
+        var lightColor: Int?,
+        var darkColor: Int?
 )

@@ -12,4 +12,6 @@ interface ChampionRepository {
 
     fun getChampion(id: String) : Champion?
 
+    fun storeChampion(champion: Champion)
+
 }

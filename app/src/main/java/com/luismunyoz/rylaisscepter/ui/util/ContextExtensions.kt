@@ -22,6 +22,9 @@ import android.content.Intent
 import android.support.v4.app.ActivityCompat
 import android.support.v4.app.ActivityOptionsCompat
 import android.view.View
+import android.util.TypedValue
+
+
 
 inline fun <reified T : Activity> Activity.navigate(id: String, sharedView: View? = null,
                                                            transitionName: String? = null) {
@@ -42,3 +45,6 @@ fun Activity.getNavigationId(): String {
     return intent.getStringExtra("id")
 }
 
+fun Activity.dpToPx(quantity : Float) : Float {
+    return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, quantity, resources.displayMetrics)
+}

@@ -12,4 +12,8 @@ interface ChampionDataSet {
 
     fun requestChampion(id: String) : Champion?
 
+    fun store(champion : Champion)
+
+    fun isCacheValid() : Boolean
+
 }

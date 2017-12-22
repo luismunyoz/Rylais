@@ -19,5 +19,7 @@ interface MainContract {
     interface Presenter : BaseContract.BasePresenter {
 
         fun onChampionPressed(championId: String)
+
+        fun updateChampion(uiChampion: UIChampion)
     }
 }

@@ -1,6 +1,7 @@
 package com.luismunyoz.rylaisscepter.di
 
 import android.content.Context
+import com.google.firebase.firestore.FirebaseFirestore
 import com.luismunyoz.rylaisscepter.BuildConfig
 import com.luismunyoz.rylaisscepter.R
 import com.luismunyoz.rylaisscepter.data.riot.RiotAPIRequestInterceptor
@@ -50,4 +51,7 @@ class DataModule {
 
     @Provides @Singleton
     fun providesRiotAPIService(retrofit: Retrofit): RiotAPIService = retrofit.create(RiotAPIService::class.java)
+
+    @Provides @Singleton
+    fun provideFirebaseFirestore() = FirebaseFirestore.getInstance()
 }
