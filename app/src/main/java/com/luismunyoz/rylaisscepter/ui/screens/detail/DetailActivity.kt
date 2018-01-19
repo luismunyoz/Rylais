@@ -81,10 +81,10 @@ class DetailActivity : BaseActivity(), DetailContract.View {
     @SuppressLint("NewApi")
     override fun populateChampion(baseChampion: UIBaseChampion) {
         supportsLollipop {
-            uiBaseChampion.primaryColor?.let {
+            uiBaseChampion.colors?.primaryColor?.let {
                 window.setBackgroundDrawable(ColorDrawable(it))
             }
-            uiBaseChampion.darkColor?.let {
+            uiBaseChampion.colors?.darkColor?.let {
                 window.statusBarColor = it
             }
         }

@@ -9,6 +9,8 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.luismunyoz.rylaisscepter.BuildConfig
 import com.luismunyoz.rylaisscepter.data.firebase.mapper.ChampionMapper
 import com.luismunyoz.rylaisscepter.data.firebase.model.FBBaseChampion
+import com.luismunyoz.rylaisscepter.data.firebase.model.FBChampion
+import com.luismunyoz.rylaisscepter.domain.entity.Champion
 import java.util.concurrent.TimeUnit
 
 
@@ -16,13 +18,7 @@ import java.util.concurrent.TimeUnit
  * Created by llco on 20/12/2017.
  */
 class FirebaseChampionDataSet @Inject constructor(val firebaseDatabase: FirebaseFirestore) : ChampionDataSet {
-
     override fun requestChampions(): List<BaseChampion> {
-
-        if(!isCacheValid()){
-            return listOf()
-        }
-
         val baseChampions: MutableList<FBBaseChampion> = mutableListOf()
         try {
             val task = firebaseDatabase.collection("basechampions").orderBy("name").get()
@@ -42,17 +38,12 @@ class FirebaseChampionDataSet @Inject constructor(val firebaseDatabase: Firebase
         return listOf()
     }
 
-    override fun requestChampion(id: String): BaseChampion? {
-
-        if(!isCacheValid()){
-            return null
-        }
-
+    override fun requestChampion(id: String): Champion? {
         try {
-            val task = firebaseDatabase.collection("baseChampions").document(id).get()
+            val task = firebaseDatabase.collection("champions").document(id).get()
             Tasks.await(task, 500, TimeUnit.MILLISECONDS)
             if (task.isSuccessful) {
-                return ChampionMapper().transform(task.result.toObject(FBBaseChampion::class.java))
+                return ChampionMapper().transform(task.result.toObject(FBChampion::class.java))
             }
         } catch (e: Exception) {
             e.printStackTrace()
@@ -69,6 +60,13 @@ class FirebaseChampionDataSet @Inject constructor(val firebaseDatabase: Firebase
         firebaseDatabase.collection("configuration").document("cache").set(mapOf<String, Any>(Pair("lastUpdatedChampions", System.currentTimeMillis())))
     }
 
+    override fun store(champion: Champion) {
+        val map = ChampionMapper().transform(champion).map
+
+        firebaseDatabase.collection("champion").document(champion.id)
+                .set(map)
+    }
+
     override fun isCacheValid(): Boolean {
         try {
             val task = firebaseDatabase.collection("configuration").document("cache").get()
@@ -79,11 +77,12 @@ class FirebaseChampionDataSet @Inject constructor(val firebaseDatabase: Firebase
                     Log.d("FIREBASE", "Cache is invalid")
                     return false
                 }
+                return true
             }
         } catch (e: Exception){
             e.printStackTrace()
         }
         Log.d("FIREBASE", "Cache is valid")
-        return true
+        return false
     }
 }

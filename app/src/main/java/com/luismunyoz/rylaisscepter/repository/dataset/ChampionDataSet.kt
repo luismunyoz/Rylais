@@ -15,6 +15,8 @@ interface ChampionDataSet {
 
     fun store(baseChampion: BaseChampion)
 
+    fun store(champion: Champion)
+
     fun isCacheValid() : Boolean
 
 }

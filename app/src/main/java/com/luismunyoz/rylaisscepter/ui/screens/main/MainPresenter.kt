@@ -1,8 +1,9 @@
 package com.luismunyoz.rylaisscepter.ui.screens.main
 
 import com.luismunyoz.rylaisscepter.domain.entity.BaseChampion
+import com.luismunyoz.rylaisscepter.domain.entity.ChampionUIColors
 import com.luismunyoz.rylaisscepter.domain.interactor.GetBaseChampionsInteractor
-import com.luismunyoz.rylaisscepter.domain.interactor.UpdateChampionInteractor
+import com.luismunyoz.rylaisscepter.domain.interactor.UpdateBaseChampionInteractor
 import com.luismunyoz.rylaisscepter.domain.interactor.base.Bus
 import com.luismunyoz.rylaisscepter.domain.interactor.base.InteractorExecutor
 import com.luismunyoz.rylaisscepter.domain.interactor.event.ChampionsEvent
@@ -15,7 +16,7 @@ import com.luismunyoz.rylaisscepter.ui.entity.mapper.UIChampionDataMapper
 class MainPresenter(val view: MainContract.View,
                     override val bus: Bus,
                     val getBaseChampionsInteractor: GetBaseChampionsInteractor,
-                    val storeChampionInteractor: UpdateChampionInteractor,
+                    val storeBaseChampionInteractor: UpdateBaseChampionInteractor,
                     val interactorExecutor: InteractorExecutor,
                     val uiChampionDataMapper: UIChampionDataMapper) : MainContract.Presenter {
 
@@ -41,13 +42,11 @@ class MainPresenter(val view: MainContract.View,
 
     override fun updateChampion(uiBaseChampion: UIBaseChampion) {
         val champion = baseChampions.first { it.id.equals(uiBaseChampion.id) }
-        champion.primaryColor = uiBaseChampion.primaryColor
-        champion.primaryTextColor = uiBaseChampion.primaryTextColor
-        champion.primaryTitleColor = uiBaseChampion.primaryTitleColor
-        champion.lightColor = uiBaseChampion.lightColor
-        champion.darkColor = uiBaseChampion.darkColor
-        storeChampionInteractor.baseChampion = champion
-        interactorExecutor.execute(storeChampionInteractor)
+        uiBaseChampion.colors?.let {
+            champion.colors = uiChampionDataMapper.transform(it)
+            storeBaseChampionInteractor.baseChampion = champion
+            interactorExecutor.execute(storeBaseChampionInteractor)
+        }
     }
 
 }

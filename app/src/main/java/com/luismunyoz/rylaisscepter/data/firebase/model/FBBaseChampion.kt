@@ -11,11 +11,7 @@ data class FBBaseChampion(
         val key: String = "",
         val name: String = "",
         val title: String = "",
-        var primaryColor: Int? = null,
-        var primaryTitleColor: Int? = null,
-        var primaryTextColor: Int? = null,
-        var lightColor: Int? = null,
-        var darkColor: Int? = null
+        val colors: FBChampionUIColors? = FBChampionUIColors()
     ) {
     val map: HashMap<String, Any?> by lazy {
         HashMap<String, Any?>().apply {
@@ -23,11 +19,7 @@ data class FBBaseChampion(
             put("key", key)
             put("name", name)
             put("title", title)
-            put("primaryColor", primaryColor)
-            put("primaryTitleColor", primaryTitleColor)
-            put("primaryTextColor", primaryTextColor)
-            put("lightColor", lightColor)
-            put("darkColor", darkColor)
+            put("colors", colors?.map)
         }
     }
 }

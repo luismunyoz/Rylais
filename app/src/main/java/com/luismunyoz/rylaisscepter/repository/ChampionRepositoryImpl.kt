@@ -1,6 +1,7 @@
 package com.luismunyoz.rylaisscepter.repository
 
 import com.luismunyoz.rylaisscepter.domain.entity.BaseChampion
+import com.luismunyoz.rylaisscepter.domain.entity.Champion
 import com.luismunyoz.rylaisscepter.domain.repository.ChampionRepository
 import com.luismunyoz.rylaisscepter.repository.dataset.ChampionDataSet
 
@@ -8,9 +9,13 @@ import com.luismunyoz.rylaisscepter.repository.dataset.ChampionDataSet
  * Created by llco on 11/09/2017.
  */
 class ChampionRepositoryImpl(val championDataSets: List<ChampionDataSet>) : ChampionRepository {
-    override fun getChampion(id: String): BaseChampion? {
+
+    override fun getChampion(id: String): Champion? {
         var lastDataSet: ChampionDataSet? = null
         return championDataSets
+                .filter {
+                    it.isCacheValid()
+                }
                 .map {
                     lastDataSet = it
                     it.requestChampion(id)
@@ -26,6 +31,9 @@ class ChampionRepositoryImpl(val championDataSets: List<ChampionDataSet>) : Cham
     override fun getBaseChampions(): List<BaseChampion> {
         var lastDataSet: ChampionDataSet? = null
         return championDataSets
+                .filter {
+                    it.isCacheValid()
+                }
                 .map {
                     lastDataSet = it
                     it.requestChampions()
@@ -39,10 +47,23 @@ class ChampionRepositoryImpl(val championDataSets: List<ChampionDataSet>) : Cham
                 ?: emptyList()
     }
 
-    override fun storeChampion(baseChampion: BaseChampion) {
+    override fun storeChampion(champion: Champion) {
         championDataSets
-            .map {
-                it.store(baseChampion)
-            }
+                .filter {
+                    !it.isCacheValid()
+                }
+                .map {
+                    it.store(champion)
+                }
+    }
+
+    override fun storeBaseChampion(baseChampion: BaseChampion) {
+        championDataSets
+                .filter {
+                    !it.isCacheValid()
+                }
+                .map {
+                    it.store(baseChampion)
+                }
     }
 }

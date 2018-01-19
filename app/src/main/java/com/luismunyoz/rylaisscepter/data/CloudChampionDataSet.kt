@@ -22,6 +22,9 @@ class CloudChampionDataSet(val riotAPIService: RiotAPIService) : ChampionDataSet
     override fun store(baseChampion: BaseChampion) {
     }
 
+    override fun store(champion: Champion) {
+    }
+
     override fun isCacheValid(): Boolean = true
 
 }

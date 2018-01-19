@@ -11,21 +11,17 @@ class UIBaseChampion(
         val key: String,
         val name: String,
         val title: String,
-        var primaryColor: Int?,
-        var primaryTitleColor: Int?,
-        var primaryTextColor: Int?,
-        var lightColor: Int?,
-        var darkColor: Int?
+        var colors: UIChampionColors?
 ) : Serializable {
     fun getLoadingImageUrl() : String {
-        return "http://ddragon.leagueoflegends.com/cdn/img/baseChampion/loading/${key}_0.jpg"
+        return "http://ddragon.leagueoflegends.com/cdn/img/champion/loading/${key}_0.jpg"
     }
 
     fun getSquareImageUrl() : String {
-        return "http://ddragon.leagueoflegends.com/cdn/6.24.1/img/baseChampion/${key}.png"
+        return "http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/${key}.png"
     }
 
     fun getSplashImageUrl() : String {
-        return "http://ddragon.leagueoflegends.com/cdn/img/baseChampion/splash/${key}_0.jpg"
+        return "http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${key}_0.jpg"
     }
 }

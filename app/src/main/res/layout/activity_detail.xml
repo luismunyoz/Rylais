@@ -25,7 +25,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fitsSystemWindows="true"
-                app:contentScrim="@{item.primaryColor != null ? item.primaryColor : 0x000000}"
+                app:contentScrim="@{item.colors != null &amp;&amp; item.colors.primaryColor != null ? item.colors.primaryColor : 0x000000}"
                 app:expandedTitleMarginEnd="64dp"
                 app:expandedTitleMarginStart="48dp"
                 app:expandedTitleTextAppearance="@android:color/transparent"
@@ -47,7 +47,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
                     android:layout_gravity="bottom"
-                    app:verticalBackgroundGradient="@{item.primaryColor != null ? item.primaryColor : 0x000000}" />
+                    app:verticalBackgroundGradient="@{item.colors != null &amp;&amp; item.colors.primaryColor != null ? item.colors.primaryColor : 0x000000}" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -64,7 +64,7 @@
                     android:textAllCaps="true"
                     android:textSize="60sp"
                     android:transitionName="name"
-                    app:textColor="@{item.primaryTextColor != null ? item.primaryTextColor : 0xffffff}"
+                    app:textColor="@{item.colors != null &amp;&amp; item.colors.primaryTextColor != null ? item.colors.primaryTextColor : 0xffffff}"
                     tools:text="Champion name" />
 
                 <android.support.v7.widget.Toolbar

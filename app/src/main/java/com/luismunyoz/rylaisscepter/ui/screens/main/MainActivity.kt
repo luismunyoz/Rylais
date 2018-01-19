@@ -29,14 +29,11 @@ import com.luismunyoz.rylaisscepter.ui.util.supportsLollipop
 import javax.inject.Inject
 import android.support.v4.util.Pair
 import android.util.Log
+import com.luismunyoz.rylaisscepter.ui.entity.UIChampionColors
 
 class MainActivity : BaseActivity(), MainContract.View, UIChampionsAdapter.Callback {
 
-    //@BindView(R.id.main_list)
     lateinit var list : RecyclerView
-
-    @Inject
-    lateinit var uiChampionDataMapper : UIChampionDataMapper
 
     @Inject
     lateinit var presenter : MainPresenter
@@ -100,20 +97,23 @@ class MainActivity : BaseActivity(), MainContract.View, UIChampionsAdapter.Callb
                             }
                         }
 
+                        val colors = UIChampionColors()
+
                         primarySwatch?.let {
-                            baseChampion.primaryColor = it.rgb
-                            baseChampion.primaryTextColor = it.bodyTextColor
-                            baseChampion.primaryTitleColor = it.titleTextColor
+                            colors.primaryColor = it.rgb
+                            colors.primaryTextColor = it.bodyTextColor
+                            colors.primaryTitleColor = it.titleTextColor
                         }
 
                         lightSwatch?.let {
-                            baseChampion.lightColor = it.rgb
+                            colors.lightColor = it.rgb
                         }
 
                         darkSwatch?.let {
-                            baseChampion.darkColor = it.rgb
+                            colors.darkColor = it.rgb
                         }
 
+                        baseChampion.colors = colors
                         adapter.updateItem(position, baseChampion)
                         presenter.updateChampion(baseChampion)
                     }
@@ -129,8 +129,8 @@ class MainActivity : BaseActivity(), MainContract.View, UIChampionsAdapter.Callb
             lastPressedTextView?.transitionName = "name"
         }
 
-        baseChampion.primaryColor?.let {
-            window.setBackgroundDrawable(ColorDrawable(baseChampion.primaryColor!!))
+        baseChampion.colors?.primaryColor?.let {
+            window.setBackgroundDrawable(ColorDrawable(baseChampion.colors!!.primaryColor!!))
         }
 
         val intent = Intent(this, DetailActivity::class.java)

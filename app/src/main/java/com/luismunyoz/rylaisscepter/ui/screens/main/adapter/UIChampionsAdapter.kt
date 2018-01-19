@@ -11,9 +11,9 @@ import com.luismunyoz.rylaisscepter.ui.util.BaseAdapter
  */
 class UIChampionsAdapter(var items: List<UIBaseChampion>, var callback: Callback) : BaseAdapter() {
 
-    override fun getItemForPosition(position: Int) : Any {
+    override fun getItemForPosition(position: Int): Any {
         val item = items.get(position)
-        if(item.primaryTextColor == null && item.primaryColor == null && item.primaryTitleColor == null && item.lightColor == null && item.darkColor == null) {
+        if (item.colors == null) {
             callback.calculateColors(position, item)
         }
         return item
@@ -25,15 +25,13 @@ class UIChampionsAdapter(var items: List<UIBaseChampion>, var callback: Callback
 
     override fun getItemCount() = items.size
 
-    fun updateItem(position: Int, uiBaseChampion: UIBaseChampion){
-        items.find { it.id == uiBaseChampion.id }?.apply {
-            primaryTextColor = uiBaseChampion.primaryTextColor
-            primaryColor = uiBaseChampion.primaryColor
-            primaryTitleColor = uiBaseChampion.primaryTitleColor
-            lightColor = uiBaseChampion.lightColor
-            darkColor = uiBaseChampion.darkColor
+    fun updateItem(position: Int, uiBaseChampion: UIBaseChampion) {
+        uiBaseChampion.colors?.let {
+            items.find { it.id == uiBaseChampion.id }?.apply {
+                colors = uiBaseChampion.colors
+            }
+            notifyItemChanged(position)
         }
-        notifyItemChanged(position)
     }
 
     public interface Callback {

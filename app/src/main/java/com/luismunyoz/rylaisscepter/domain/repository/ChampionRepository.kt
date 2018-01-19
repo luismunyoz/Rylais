@@ -1,6 +1,7 @@
 package com.luismunyoz.rylaisscepter.domain.repository
 
 import com.luismunyoz.rylaisscepter.domain.entity.BaseChampion
+import com.luismunyoz.rylaisscepter.domain.entity.Champion
 
 
 /**
@@ -10,8 +11,10 @@ interface ChampionRepository {
 
     fun getBaseChampions(): List<BaseChampion>
 
-    fun getChampion(id: String) : BaseChampion?
+    fun getChampion(id: String) : Champion?
 
-    fun storeChampion(baseChampion: BaseChampion)
+    fun storeBaseChampion(baseChampion: BaseChampion)
+
+    fun storeChampion(champion: Champion)
 
 }
