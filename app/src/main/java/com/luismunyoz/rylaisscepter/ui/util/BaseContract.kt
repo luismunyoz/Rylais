@@ -1,6 +1,6 @@
 package com.luismunyoz.rylaisscepter.ui.util
 
-import com.luismunyoz.rylaisscepter.domain.interactor.base.Bus
+import io.reactivex.disposables.CompositeDisposable
 
 /**
  * Created by llco on 11/09/2017.
@@ -8,14 +8,18 @@ import com.luismunyoz.rylaisscepter.domain.interactor.base.Bus
 interface BaseContract {
 
     public interface BasePresenter {
-        val bus: Bus
+        val disposable: CompositeDisposable
 
         fun onResume(){
-            bus.register(this)
+
         }
 
         fun onPause(){
-            bus.unregister(this)
+
+        }
+
+        fun onDestroy(){
+            disposable.clear()
         }
     }
 

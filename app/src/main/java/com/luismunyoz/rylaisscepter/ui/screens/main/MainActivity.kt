@@ -73,51 +73,49 @@ class MainActivity : BaseActivity(), MainContract.View, UIChampionsAdapter.Callb
         Log.d("PALETTE", "Calculating color for ${baseChampion.name}")
         Glide.with(this).load(baseChampion.getSplashImageUrl()).asBitmap().into(object : SimpleTarget<Bitmap>(){
             override fun onResourceReady(resource: Bitmap?, glideAnimation: GlideAnimation<in Bitmap>?) {
-                Palette.from(resource).generate(object : Palette.PaletteAsyncListener {
-                    override fun onGenerated(palette: Palette?) {
-                        var primarySwatch : Palette.Swatch? = null
-                        var lightSwatch : Palette.Swatch? = null
-                        var darkSwatch : Palette.Swatch? = null
+                Palette.from(resource).generate { palette ->
+                    var primarySwatch : Palette.Swatch? = null
+                    var lightSwatch : Palette.Swatch? = null
+                    var darkSwatch : Palette.Swatch? = null
 
-                        if(palette?.vibrantSwatch != null){
-                            primarySwatch = palette.vibrantSwatch
-                            if(palette.lightVibrantSwatch != null){
-                                lightSwatch = palette.lightVibrantSwatch
-                            }
-                            if(palette.darkVibrantSwatch != null){
-                                darkSwatch = palette.darkVibrantSwatch
-                            }
-                        } else if(palette?.mutedSwatch != null) {
-                            primarySwatch = palette.mutedSwatch
-                            if(palette.lightVibrantSwatch != null){
-                                lightSwatch = palette.lightMutedSwatch
-                            }
-                            if(palette.darkVibrantSwatch != null){
-                                darkSwatch = palette.darkMutedSwatch
-                            }
+                    if(palette?.vibrantSwatch != null){
+                        primarySwatch = palette.vibrantSwatch
+                        if(palette.lightVibrantSwatch != null){
+                            lightSwatch = palette.lightVibrantSwatch
                         }
-
-                        val colors = UIChampionColors()
-
-                        primarySwatch?.let {
-                            colors.primaryColor = it.rgb
-                            colors.primaryTextColor = it.bodyTextColor
-                            colors.primaryTitleColor = it.titleTextColor
+                        if(palette.darkVibrantSwatch != null){
+                            darkSwatch = palette.darkVibrantSwatch
                         }
-
-                        lightSwatch?.let {
-                            colors.lightColor = it.rgb
+                    } else if(palette?.mutedSwatch != null) {
+                        primarySwatch = palette.mutedSwatch
+                        if(palette.lightVibrantSwatch != null){
+                            lightSwatch = palette.lightMutedSwatch
                         }
-
-                        darkSwatch?.let {
-                            colors.darkColor = it.rgb
+                        if(palette.darkVibrantSwatch != null){
+                            darkSwatch = palette.darkMutedSwatch
                         }
-
-                        baseChampion.colors = colors
-                        adapter.updateItem(position, baseChampion)
-                        presenter.updateChampion(baseChampion)
                     }
-                })
+
+                    val colors = UIChampionColors()
+
+                    primarySwatch?.let {
+                        colors.primaryColor = it.rgb
+                        colors.primaryTextColor = it.bodyTextColor
+                        colors.primaryTitleColor = it.titleTextColor
+                    }
+
+                    lightSwatch?.let {
+                        colors.lightColor = it.rgb
+                    }
+
+                    darkSwatch?.let {
+                        colors.darkColor = it.rgb
+                    }
+
+                    baseChampion.colors = colors
+                    adapter.updateItem(position, baseChampion)
+                    presenter.updateChampion(baseChampion)
+                }
             }
         })
     }
@@ -140,8 +138,8 @@ class MainActivity : BaseActivity(), MainContract.View, UIChampionsAdapter.Callb
         var options: ActivityOptionsCompat? = null
 
         if (lastPressedImageView != null && lastPressedTextView != null) {
-            val pair1 = Pair.create(lastPressedImageView!!, "image") as Pair<View, String>
-            val pair2 = Pair.create(lastPressedTextView!!, "name") as Pair<View, String>
+            val pair1 : Pair<View, String> = Pair.create(lastPressedImageView!!, "image")
+            val pair2 : Pair<View, String> = Pair.create(lastPressedTextView!!, "name")
             options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, pair1, pair2)
         }
 
@@ -156,5 +154,10 @@ class MainActivity : BaseActivity(), MainContract.View, UIChampionsAdapter.Callb
     override fun onPause() {
         super.onPause()
         presenter.onPause()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter.onDestroy()
     }
 }

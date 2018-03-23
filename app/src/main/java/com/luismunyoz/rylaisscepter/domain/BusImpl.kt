@@ -18,10 +18,9 @@ package com.luismunyoz.rylaisscepter.domain
 
 import android.os.Handler
 import android.os.Looper
-import com.luismunyoz.rylaisscepter.domain.interactor.base.Bus
 import de.greenrobot.event.EventBus
 
-class BusImpl : EventBus(), Bus {
+class BusImpl : EventBus() {
 
     val mainThread = Handler(Looper.getMainLooper())
 

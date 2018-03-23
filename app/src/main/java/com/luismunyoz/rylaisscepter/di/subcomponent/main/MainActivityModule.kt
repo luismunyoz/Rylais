@@ -4,8 +4,6 @@ import com.luismunyoz.rylaisscepter.di.ActivityModule
 import com.luismunyoz.rylaisscepter.di.scope.ActivityScope
 import com.luismunyoz.rylaisscepter.domain.interactor.GetBaseChampionsInteractor
 import com.luismunyoz.rylaisscepter.domain.interactor.UpdateBaseChampionInteractor
-import com.luismunyoz.rylaisscepter.domain.interactor.base.Bus
-import com.luismunyoz.rylaisscepter.domain.interactor.base.InteractorExecutor
 import com.luismunyoz.rylaisscepter.ui.entity.mapper.UIChampionDataMapper
 import com.luismunyoz.rylaisscepter.ui.screens.main.MainActivity
 import com.luismunyoz.rylaisscepter.ui.screens.main.MainContract
@@ -26,7 +24,7 @@ class MainActivityModule(activity: MainActivity) : ActivityModule(activity) {
     fun provideUIChampionMapper() = UIChampionDataMapper()
 
     @Provides @ActivityScope
-    fun provideMainPresenter(view: MainContract.View, bus: Bus, getBaseChampionsInteractor: GetBaseChampionsInteractor, updateBaseChampionInteractor: UpdateBaseChampionInteractor, interactorExecutor: InteractorExecutor, uiChampionDataMapper: UIChampionDataMapper) =
-            MainPresenter(view, bus, getBaseChampionsInteractor, updateBaseChampionInteractor, interactorExecutor, uiChampionDataMapper)
+    fun provideMainPresenter(view: MainContract.View, getBaseChampionsInteractor: GetBaseChampionsInteractor, updateBaseChampionInteractor: UpdateBaseChampionInteractor, uiChampionDataMapper: UIChampionDataMapper) =
+            MainPresenter(view, getBaseChampionsInteractor, updateBaseChampionInteractor, uiChampionDataMapper)
 
 }
